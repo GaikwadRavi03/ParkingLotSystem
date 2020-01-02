@@ -2,7 +2,7 @@
   "name": "parkinglot",
   "version": "1.0.0",
   "description": "",
-  "main": "ParkingLotSystem.js",
+  "main": "main/ParkingLotSystem.js",
   "scripts": {
     "test": "mocha"
   },
