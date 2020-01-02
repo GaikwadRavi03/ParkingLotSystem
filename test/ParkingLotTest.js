@@ -45,4 +45,30 @@ describe('describe Mocha Test for parking lot', function () {
             assert.equal(error.message, 'lot is full.');
         }
     });
+    it('should return exception when parking lot is full and notify to parking lot owner.', function () {
+        try {
+            let parkingLotSystem = new ParkingLotSystem();
+            let car = new Object();
+            let car1 = new Object();
+            let car2 = new Object();
+            parkingLotSystem.park(car);
+            parkingLotSystem.park(car1);
+            parkingLotSystem.park(car2);
+        } catch (error) {
+            assert.equal(error.message, 'lot is full.');
+        }
+    });
+    it('should return exception when parking lot is full and notify to airport security.', function () {
+        try {
+            let parkingLotSystem = new ParkingLotSystem();
+            let car = new Object();
+            let car1 = new Object();
+            let car2 = new Object();
+            parkingLotSystem.park(car);
+            parkingLotSystem.park(car1);
+            parkingLotSystem.park(car2);
+        } catch (error) {
+            assert.equal(error.message, 'lot is full.');
+        }
+    });
 }); 
