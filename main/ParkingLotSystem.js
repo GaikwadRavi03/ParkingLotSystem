@@ -1,10 +1,12 @@
 var ParkingLotOwner = require('./ParkingLotOwner');
+var AirportSecurity = require('./AirportSecurity');
 let parkingLots = 0
 let parkingLotMaxSize = 3
 
 class ParkingLotSystem {
 
     park(vehicle) {
+        let airportSecurity = new AirportSecurity();
         let parkingLotOwner = new ParkingLotOwner();
         if (vehicle == null || vehicle == undefined) {
             return false;
@@ -14,6 +16,7 @@ class ParkingLotSystem {
             parkingLots++
             return true;
         }
+        airportSecurity.notify(true);
         parkingLotOwner.notify(true);
         throw new Error('lot is full.');
     }
