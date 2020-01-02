@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/GaikwadRavi03/ParkingLotSystem/issues"
   },
-  "homepage": "https://github.com/GaikwadRavi03/ParkingLotSystem#readme"
+  "homepage": "https://github.com/GaikwadRavi03/ParkingLotSystem#readme",
+  "dependencies": {
+    "arraylist": "^0.1.0"
+  }
 }
