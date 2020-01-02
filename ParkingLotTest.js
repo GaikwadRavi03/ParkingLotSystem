@@ -7,4 +7,11 @@ describe('describe Mocha Test for parking lot', function () {
         let ans = parkingLotSystem.park(car);
         assert.equal(ans, true);
     });
+    it('should return Unpark their car to go home.', function () {
+        let parkingLotSystem = new ParkingLotSystem();
+        let car = new Object();
+        parkingLotSystem.park(car);
+        let ans = parkingLotSystem.unPark(car);
+        assert.equal(ans, true);
+    });
 });
