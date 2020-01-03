@@ -32,7 +32,7 @@ class ParkingLotSystem {
         }
         for (let i = 0; i < this.parkingLots.length; i++) {
             if (this.parkingLots[i] == vehicle) {
-                this.parkingLots.pop();
+                delete this.parkingLots[i];
                 parkingLotOwner.slotEmpty();
                 return true;
             }
