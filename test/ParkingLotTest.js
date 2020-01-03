@@ -1,10 +1,17 @@
 var assert = require('assert');
 var ParkingLotSystem = require('../main/ParkingLotSystem');
+let ParkingLotOwner = require('../main/ParkingLotOwner');
+let AirportSecurity = require('../main/AirportSecurity');
 
 describe('describe Mocha Test for parking lot', function () {
     let parkingLotSystem;
+    let airportSecurity;
+    let parkingLotOwner;
+
     beforeEach(() => {
         parkingLotSystem = new ParkingLotSystem();
+        airportSecurity = new AirportSecurity();
+        parkingLotOwner = new ParkingLotOwner();
     })
     it('should return true when park their car to catch the flight.', function () {
         let car = new Object();
@@ -102,9 +109,26 @@ describe('describe Mocha Test for parking lot', function () {
             let car = new Object();
             let car1 = new Object();
             let car2 = new Object();
+            let car3 = new Object();
+            parkingLotSystem.park(car);
+            parkingLotSystem.park(car1);
+            // parkingLotSystem.park(car2);
+            // parkingLotSystem.park(car3);
+            parkingLotSystem.unPark(car1);
+        } catch (error) {
+            assert.equal(error.message, 'lot is full.');
+        }
+    });
+    it('should return exception when parking lot is full and again is available then notify to parking lot owner .', function () {
+        try {
+            let car = new Object();
+            let car1 = new Object();
+            let car2 = new Object();
+            let car3 = new Object();
             parkingLotSystem.park(car);
             parkingLotSystem.park(car1);
             parkingLotSystem.park(car2);
+            // parkingLotSystem.park(car3);
             parkingLotSystem.unPark(car2);
         } catch (error) {
             assert.equal(error.message, 'lot is full.');
