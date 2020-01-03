@@ -2,12 +2,12 @@ var ParkingLotOwner = require('./ParkingLotOwner');
 var AirportSecurity = require('./AirportSecurity');
 let airportSecurity;
 let parkingLotOwner;
+const parkingLotMaxSize = 3
 
 class ParkingLotSystem {
 
     constructor() {
         this.parkingLots = [];
-        this.parkingLotMaxSize = 3
         airportSecurity = new AirportSecurity();
         parkingLotOwner = new ParkingLotOwner();
     }
@@ -16,11 +16,8 @@ class ParkingLotSystem {
         if (vehicle == null || vehicle == undefined) {
             throw new Error('unknown vehicle parked.');
         }
-        if (this.parkingLots.length == this.parkingLotMaxSize) {
-            console.log('parking lot is full now.')
-            parkingLotOwner.slotFull();
-            airportSecurity.slotFull();
-            return true;
+        if (this.isParkingLotFull()) {
+            return false;
         }
         this.parkingLots.push(vehicle);
         return true;
@@ -28,16 +25,31 @@ class ParkingLotSystem {
 
     unPark(vehicle) {
         if (vehicle == null || vehicle == undefined) {
-            return false;
+            throw new Error('unknown vehicle unParked.');
         }
+        if (this.isParkingLotAvailable) {
+            return true;
+        }
+    }
+
+    isParkingLotFull() {
+        if (this.parkingLots.length == parkingLotMaxSize) {
+            parkingLotOwner.notifySlotFull();
+            airportSecurity.notifySlotFull();
+            return true;
+        }
+        return false;
+    }
+
+    isParkingLotAvailable() {
         for (let i = 0; i < this.parkingLots.length; i++) {
             if (this.parkingLots[i] == vehicle) {
                 delete this.parkingLots[i];
-                parkingLotOwner.slotEmpty();
+                parkingLotOwner.notifySlotEmpty();
                 return true;
             }
+            return false;
         }
-        throw new Error('unknown vehicle unParked.');
     }
 }
 

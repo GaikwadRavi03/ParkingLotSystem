@@ -1,15 +1,15 @@
 let parkingFullFlag;
 
 class ParkingLotOwner {
-    slotFull() {
+    notifySlotFull() {
         parkingFullFlag = true;
-        console.log('notification to airport security :- parking lot is full.')
+        console.log('notification to parking lot owner :- parking lot is full.')
         return parkingFullFlag;
     }
 
-    slotEmpty() {
+    notifySlotEmpty() {
         parkingFullFlag = false;
-        console.log('notification to airport security :- parking lot is available.')
+        console.log('notification to parking lot owner :- parking lot is available.')
         return parkingFullFlag;
     }
 }
