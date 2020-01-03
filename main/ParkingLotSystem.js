@@ -2,30 +2,27 @@ var ParkingLotOwner = require('./ParkingLotOwner');
 var AirportSecurity = require('./AirportSecurity');
 let airportSecurity;
 let parkingLotOwner;
-let parkingLots = 0
-let parkingLotMaxSize = 2
-var array = [];
 
 class ParkingLotSystem {
 
     constructor() {
+        this.parkingLots = [];
+        this.parkingLotMaxSize = 3
         airportSecurity = new AirportSecurity();
         parkingLotOwner = new ParkingLotOwner();
     }
 
     park(vehicle) {
         if (vehicle == null || vehicle == undefined) {
-            return false;
+            throw new Error('unknown vehicle parked.');
         }
-        if (parkingLots == parkingLotMaxSize) {
+        if (this.parkingLots.length == this.parkingLotMaxSize) {
             console.log('parking lot is full now.')
             parkingLotOwner.slotFull();
             airportSecurity.slotFull();
-            throw new Error('lot is full.');
+            return true;
         }
-        this.parkVehicle = vehicle;
-        array.push(vehicle);
-        parkingLots++;
+        this.parkingLots.push(vehicle);
         return true;
     }
 
@@ -33,14 +30,11 @@ class ParkingLotSystem {
         if (vehicle == null || vehicle == undefined) {
             return false;
         }
-        for (let i = 0; i < array.length; i++) {
-            if (array[i] == vehicle) {
-                array.pop();
-                console.log(array)
+        for (let i = 0; i < this.parkingLots.length; i++) {
+            if (this.parkingLots[i] == vehicle) {
+                this.parkingLots.pop();
                 parkingLotOwner.slotEmpty();
-                parkingLots--;
                 return true;
-
             }
         }
         throw new Error('unknown vehicle unParked.');
