@@ -82,9 +82,11 @@ describe('describe Mocha Test for parking lot', function () {
             let car = new Object();
             let car1 = new Object();
             let car2 = new Object();
+            let car3 = new Object();
             parkingLotSystem.park(car);
             parkingLotSystem.park(car1);
-            let ans = parkingLotSystem.park(car2);
+            parkingLotSystem.park(car2);
+            let ans = parkingLotSystem.park(car3);
             assert.equal(ans, true);
         } catch (error) {
         }
