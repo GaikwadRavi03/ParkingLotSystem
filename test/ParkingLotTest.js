@@ -119,4 +119,12 @@ describe(`describe Mocha Test for parking lot`, () => {
         let emptySlots = parkingLotSystem.findEmptySlots();
         assert.equal(emptySlots, 1)
     });
+    it(`should return false when empty slot is not found.`, () => {
+        let car = [new Object(0), new Object(1), new Object(2)];
+        car.map(car => {
+            parkingLotSystem.park(car);
+        })
+        let emptySlots = parkingLotSystem.findEmptySlots();
+        assert.equal(emptySlots, false)
+    });
 });
