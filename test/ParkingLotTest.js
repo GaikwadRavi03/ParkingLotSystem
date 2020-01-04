@@ -162,4 +162,14 @@ describe(`describe Mocha Test for parking lot`, () => {
         let data = parkingLotSystem.park(car1)
         assert.equal(data, true)
     });
+    it(`should return true when driver parked car then charges to be apply. `, () => {
+        try {
+            let car = [new Object(0), new Date()];
+            let car1 = [new Object(1), new Date()];
+            parkingLotSystem.park(car)
+            parkingLotSystem.park()
+        } catch (e) {
+            assert.equal(e.message, 'unknown vehicle parked.')
+        }
+    });
 });
