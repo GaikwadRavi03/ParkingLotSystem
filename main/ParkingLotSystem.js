@@ -6,6 +6,7 @@ const parkingLotMaxSize = 9
 class ParkingLotSystem {
 
     constructor() {
+        this.largestEmptySlot = []
         this.parkingLots = 0;
         this.counter = 0;
         this.lots(3, [3, 3, 3]);
@@ -22,6 +23,8 @@ class ParkingLotSystem {
         }
         if (vehicle.valueOf() == "Handicap") {
             lotNumber = this.findLotNumberToParkForHandicap();
+        } else if (vehicle.valueOf() == "LargeCar") {
+            lotNumber = this.findLotNumberToParkToLargeCar();
         } else {
             lotNumber = this.findLotNumberToPark();
         }
@@ -113,6 +116,19 @@ class ParkingLotSystem {
                 }
             }
         }
+    }
+
+    findLotNumberToParkToLargeCar() {
+        for (let i = 0; i < this.parkingLots.length; i++) {
+            let count = 0
+            for (let j = 0; j < this.parkingLots.length; j++) {
+                if (this.parkingLots[i][j] == undefined) {
+                    count++;
+                }
+            }
+            this.largestEmptySlot[i] = count - 1;
+        }
+        return Math.max(...this.largestEmptySlot);
     }
 }
 
