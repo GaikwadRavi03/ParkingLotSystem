@@ -5,15 +5,15 @@ const parkingLotMaxSize = 9
 
 class ParkingLotSystem {
 
-    constructor() {
+    constructor(numOfLots, capacity) {
         this.largestEmptySlot = []
         this.parkingLots = 0;
         this.counter = 0;
-        this.lots(3, [3, 3, 3]);
+        this.lots(numOfLots, capacity);
         parkingLotObserver = new ParkingLotObserver();
     }
 
-    park(vehicle) {
+    park(vehicle,typeOfDrivers) {
         let lotNumber;
         if (vehicle == null) {
             throw new Error('unknown vehicle parked.');
@@ -21,12 +21,12 @@ class ParkingLotSystem {
         if (this.isParkingLotFull()) {
             throw new Error('parking lot is full.');
         }
-        if (vehicle.valueOf() == "Handicap") {
+        if (typeOfDrivers == "Handicap") {
             lotNumber = this.findLotNumberToParkForHandicap();
-        } else if (vehicle.valueOf() == "LargeCar") {
-            lotNumber = this.findLotNumberToParkToLargeCar();
-        } else {
+        } else if(typeOfDrivers == "Normal"){
             lotNumber = this.findLotNumberToPark();
+        }else if (vehicle.vehicleType == "LargeCar") {
+            lotNumber = this.findLotNumberToParkToLargeCar();
         }
         for (let i = 0; i < this.parkingLots[lotNumber].length; i++) {
             if (this.parkingLots[lotNumber][i] == undefined) {
@@ -88,9 +88,9 @@ class ParkingLotSystem {
         return false
     }
 
-    lots(numOdLot, capacity) {
+    lots(numOfLots, capacity) {
         this.parkingLots = [];
-        for (let i = 0; i < numOdLot; i++) {
+        for (let i = 0; i < numOfLots; i++) {
             this.parkingLots[i] = new Array();
             for (let j = 0; j < capacity[i]; j++) {
                 this.parkingLots[i][j] = undefined;
