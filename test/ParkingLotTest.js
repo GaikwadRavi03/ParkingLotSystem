@@ -180,23 +180,33 @@ describe(`describe Mocha Test for parking lot`, () => {
     });
     //-----------uc10----------------
     it(`should return true when driver is handicap then his car parks in nearest free space. `, () => {
-        let ca1 = new Object('Handicap');
+        let car1 = new Object('Handicap');
         let car = [[new Object(0), new Date()], [new Object(1), new Date()], [new Object(2), new Date()], [new Object(3), new Date()]]
         car.map(car => {
             parkingLotSystem.park(car);
         })
-        let result = parkingLotSystem.park(ca1);
+        let result = parkingLotSystem.park(car1);
         assert.equal(result, true)
     });
     it(`should return true when more drivers are handicap then his car parks in nearest free space. `, () => {
-        let ca1 = new Object('Handicap');
-        let ca2 = new Object('Handicap');
+        let car1 = new Object('Handicap');
+        let car2 = new Object('Handicap');
         let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
         car.map(car => {
             parkingLotSystem.park(car);
         })
-        parkingLotSystem.park(ca1);
-        let result = parkingLotSystem.park(ca2);
+        parkingLotSystem.park(car1);
+        let result = parkingLotSystem.park(car2);
+        assert.equal(result, true)
+    });
+    // -----------uc11----------------
+    it(`should return true when largest car comes then it will park in highest no of free space. `, () => {
+        let car1 = new Object('LargeCar');
+        let car = [[new Object(0), new Date()], [new Object(3), new Date()], [new Object(4), new Date()], [new Object(5), new Date()]]
+        car.map(car => {
+            parkingLotSystem.park(car);
+        })
+        let result = parkingLotSystem.park(car1);
         assert.equal(result, true)
     });
 });
