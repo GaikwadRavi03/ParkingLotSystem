@@ -157,6 +157,18 @@ class ParkingLotSystem {
         }
         return false
     }
+
+    findCarsWithCarCompanyName(vehicleCompanyName) {
+        for (let j = 0; j < this.parkingLots.length; j++) {
+            for (let i = 0; i < this.parkingLots.length; i++) {
+                if (this.parkingLots[i][j].vehicleName === vehicleCompanyName) {
+                    let vehiclePosition = {lot: j, slot: i}
+                    return vehiclePosition;
+                }
+            }
+        }
+        return false
+    }
 }
 
 module.exports = ParkingLotSystem;
