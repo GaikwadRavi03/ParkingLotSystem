@@ -230,4 +230,25 @@ describe(`describe Mocha Test for parking lot`, () => {
         let result = parkingLotSystem.park(car1, driverType.type.NORMAL);
         assert.equal(result, true)
     });
+    // -----------uc12----------------
+    it(`should return true when police dept get white cars to investigate. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red'), new Vehicle('Normal', 'Blue'), new Vehicle('Normal', 'White'), new Vehicle('Normal', 'Yellow')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let whiteCar = parkingLotSystem.findWhiteCars();
+        console.log('testcases : ' + whiteCar.lot, whiteCar.slot)
+        assert.equal(whiteCar.lot, 2)
+        assert.equal(whiteCar.slot, 0)
+    });
+    it(`should return false when police dept dosen't get white cars. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red'), new Vehicle('Normal', 'Yellow'), new Vehicle('Normal', 'Black'), new Vehicle('Normal', 'Blue'), new Vehicle('Normal', 'Red'), new Vehicle('Normal', 'Yellow'), new Vehicle('Normal', 'Black'), new Vehicle('Normal', 'Blue'), new Vehicle('Normal', 'Blue')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let whiteCar = parkingLotSystem.findWhiteCars();
+        assert.equal(whiteCar, false)
+    });
 });
