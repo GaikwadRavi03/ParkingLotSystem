@@ -233,13 +233,25 @@ describe(`describe Mocha Test for parking lot`, () => {
     // -----------uc12----------------
     it(`should return true when police dept get white cars to investigate. `, () => {
         let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
-        let car = [new Vehicle('Normal', 'Red'), new Vehicle('Normal', 'Blue'), new Vehicle('Normal', 'White'), new Vehicle('Normal', 'Yellow')];
+        let car = [new Vehicle('Normal', 'Red'),
+            new Vehicle('Normal', 'Blue'),
+            new Vehicle('Normal', 'White'),
+            new Vehicle('Normal', 'Yellow'),
+            new Vehicle('Normal', 'White'),
+            new Vehicle('Normal', 'Blue'),
+            new Vehicle('Normal', 'White'),
+            new Vehicle('Normal', 'Yellow'),
+            new Vehicle('Normal', 'Yellow')];
         car.map(car => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let whiteCar = parkingLotSystem.findCarsWithColor('White');
-        assert.equal(whiteCar.lot, 2)
-        assert.equal(whiteCar.slot, 0)
+        assert.equal(whiteCar[0].lot, 2)
+        assert.equal(whiteCar[0].slot, 0)
+        assert.equal(whiteCar[1].lot, 1)
+        assert.equal(whiteCar[1].slot, 1)
+        assert.equal(whiteCar[2].lot, 0)
+        assert.equal(whiteCar[2].slot, 2)
     });
     it(`should return false when police dept dosen't get white cars. `, () => {
         let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
@@ -248,7 +260,7 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let whiteCar = parkingLotSystem.findCarsWithColor('White');
-        assert.equal(whiteCar, false)
+        assert.equal(whiteCar, '')
     });
     // -----------uc13----------------
     it(`should return true when police dept get Blue cars with toyota company to investigate. `, () => {
@@ -265,9 +277,9 @@ describe(`describe Mocha Test for parking lot`, () => {
         car.map(car => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
-        let whiteCar = parkingLotSystem.findCarsWithColorAndCarName('Blue', 'Toyota');
-        assert.equal(whiteCar.carNo, '1118')
-        assert.equal(whiteCar.driverName, 'Ravi')
+        let blueCar = parkingLotSystem.findCarsWithColorAndCarName('Blue', 'Toyota');
+        assert.equal(blueCar[0].vehicleNumber, '1118')
+        assert.equal(blueCar[0].vehicleDriverName, 'Ravi')
     });
     it(`should return false when police dept dosen't get Blue cars with toyota company to investigate. `, () => {
         let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
@@ -284,10 +296,10 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let whiteCar = parkingLotSystem.findCarsWithColorAndCarName('Blue', 'Toyota');
-        assert.equal(whiteCar, false)
+        assert.equal(whiteCar, '')
     });
     // -----------uc14----------------
-    it(`should return true when police dept get Blue cars with toyota company to investigate. `, () => {
+    it(`should return array of drivers names when police dept get Blue cars with toyota company to investigate. `, () => {
         let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
         let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', 'Ram'),
             new Vehicle('Normal', 'Yellow', 'Maruti', '1112', 'Sham'),
@@ -302,8 +314,8 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let vehiclePosition = parkingLotSystem.findCarsWithCarCompanyName('BMW');
-        assert.equal(vehiclePosition.lot, 1)
-        assert.equal(vehiclePosition.slot, 1)
+        assert.equal(vehiclePosition[0], 'Suraj')
+        assert.equal(vehiclePosition[1], 'LaxMan')
     });
     it(`should return fasle when police dept dosen't get Blue cars with toyota company to investigate. `, () => {
         let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
@@ -320,7 +332,7 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let vehiclePosition = parkingLotSystem.findCarsWithCarCompanyName('BMW');
-        assert.equal(vehiclePosition, false)
+        assert.equal(vehiclePosition, '')
     });
     // -----------uc15----------------
     it(`should return true when police dept get cars with park last 30 min so that investigate a bomb threat. `, () => {
@@ -338,11 +350,27 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
-        console.log(vehiclePosition)
         assert.equal(vehiclePosition[0], 'Suraj')
         assert.equal(vehiclePosition[1], 'Akshay')
         assert.equal(vehiclePosition[2], 'LaxMan')
         assert.equal(vehiclePosition[3], 'Ravi')
         assert.equal(vehiclePosition[4], 'Kumud')
+    });
+    it(`should return false when no car park in last 30 min. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', 'Ram', '2:00'),
+            new Vehicle('Normal', 'Yellow', 'Maruti', '1112', 'Sham', '2:15'),
+            new Vehicle('Normal', 'Black', 'Toyota', '1113', 'Salim', '2:45'),
+            new Vehicle('Normal', 'Blue', 'TATA', '1114', 'Mangesh', '2:59'),
+            new Vehicle('Normal', 'Red', 'BMW', '1115', 'Suraj', '3:31'),
+            new Vehicle('Normal', 'Yellow', 'Audi', '1116', 'Akshay', '3:35'),
+            new Vehicle('Normal', 'Black', 'BMW', '1117', 'LaxMan', '3:45'),
+            new Vehicle('Normal', 'Blue', 'Toyota', '1118', 'Ravi', '3:59'),
+            new Vehicle('Normal', 'Blue', 'Audi', '1119', 'Kumud', '4:10')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
+        assert.equal(vehiclePosition, '')
     });
 });

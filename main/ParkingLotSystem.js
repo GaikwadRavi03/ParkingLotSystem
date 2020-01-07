@@ -132,42 +132,40 @@ class ParkingLotSystem {
     }
 
     findCarsWithColor(colorOfCar) {
+        this.carArray = [];
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
                 if (this.parkingLots[i][j].vehicleColor === colorOfCar) {
                     let whiteCar = {lot: i, slot: j}
-                    return whiteCar;
+                    this.carArray.push(whiteCar)
                 }
             }
         }
-        return false
+        return this.carArray;
     }
 
     findCarsWithColorAndCarName(colorOfCar, nameOfCar) {
+        this.carArray = []
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
                 if (this.parkingLots[i][j].vehicleColor === colorOfCar && this.parkingLots[i][j].vehicleName === nameOfCar) {
-                    let vehicleData = {
-                        carNo: this.parkingLots[i][j].vehicleNumber,
-                        driverName: this.parkingLots[i][j].vehicleDriverName
-                    }
-                    return vehicleData;
+                    this.carArray.push(this.parkingLots[i][j])
                 }
             }
         }
-        return false
+        return this.carArray;
     }
 
     findCarsWithCarCompanyName(vehicleCompanyName) {
+        this.carArray = []
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
                 if (this.parkingLots[i][j].vehicleName === vehicleCompanyName) {
-                    let vehiclePosition = {lot: j, slot: i}
-                    return vehiclePosition;
+                    this.carArray.push(this.parkingLots[i][j].vehicleDriverName)
                 }
             }
         }
-        return false
+        return this.carArray;
     }
 
     findParkedCarsWithLast30Min() {
