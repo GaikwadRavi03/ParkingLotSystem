@@ -131,10 +131,10 @@ class ParkingLotSystem {
         return Math.max(...this.largestEmptySlot);
     }
 
-    findWhiteCars() {
+    findCarsWithColor(colorOfCar) {
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
-                if (this.parkingLots[i][j].vehicleColor === 'White') {
+                if (this.parkingLots[i][j].vehicleColor === colorOfCar) {
                     let whiteCar = {lot: i, slot: j}
                     return whiteCar;
                 }
@@ -143,6 +143,20 @@ class ParkingLotSystem {
         return false
     }
 
+    findCarsWithColorAndCarName(colorOfCar, nameOfCar) {
+        for (let j = 0; j < this.parkingLots.length; j++) {
+            for (let i = 0; i < this.parkingLots.length; i++) {
+                if (this.parkingLots[i][j].vehicleColor === colorOfCar && this.parkingLots[i][j].vehicleName === nameOfCar) {
+                    let vehicleData = {
+                        carNo: this.parkingLots[i][j].vehicleNumber,
+                        driverName: this.parkingLots[i][j].vehicleDriverName
+                    }
+                    return vehicleData;
+                }
+            }
+        }
+        return false
+    }
 }
 
 module.exports = ParkingLotSystem;
