@@ -237,8 +237,7 @@ describe(`describe Mocha Test for parking lot`, () => {
         car.map(car => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
-        let whiteCar = parkingLotSystem.findWhiteCars();
-        console.log('testcases : ' + whiteCar.lot, whiteCar.slot)
+        let whiteCar = parkingLotSystem.findCarsWithColor('White');
         assert.equal(whiteCar.lot, 2)
         assert.equal(whiteCar.slot, 0)
     });
@@ -248,7 +247,43 @@ describe(`describe Mocha Test for parking lot`, () => {
         car.map(car => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
-        let whiteCar = parkingLotSystem.findWhiteCars();
+        let whiteCar = parkingLotSystem.findCarsWithColor('White');
+        assert.equal(whiteCar, false)
+    });
+    // -----------uc13----------------
+    it(`should return true when police dept get Blue cars with toyota company to investigate. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', 'Ram'),
+            new Vehicle('Normal', 'Yellow', 'Maruti', '1112', 'Sham'),
+            new Vehicle('Normal', 'Black', 'Toyota', '1113', 'Salim'),
+            new Vehicle('Normal', 'Blue', 'TATA', '1114', 'Mangesh'),
+            new Vehicle('Normal', 'Red', 'BWM', '1115', 'Suraj'),
+            new Vehicle('Normal', 'Yellow', 'Audi', '1116', 'Akshay'),
+            new Vehicle('Normal', 'Black', 'BWM', '1117', 'LaxMan'),
+            new Vehicle('Normal', 'Blue', 'Toyota', '1118', 'Ravi'),
+            new Vehicle('Normal', 'Blue', 'Audi', '1119', 'Kumud')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let whiteCar = parkingLotSystem.findCarsWithColorAndCarName('Blue', 'Toyota');
+        assert.equal(whiteCar.carNo, '1118')
+        assert.equal(whiteCar.driverName, 'Ravi')
+    });
+    it(`should return false when police dept dosen't get Blue cars with toyota company to investigate. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', 'Ram'),
+            new Vehicle('Normal', 'Yellow', 'Maruti', '1112', 'Sham'),
+            new Vehicle('Normal', 'Black', 'Toyota', '1113', 'Salim'),
+            new Vehicle('Normal', 'Blue', 'TATA', '1114', 'Mangesh'),
+            new Vehicle('Normal', 'Red', 'BWM', '1115', 'Suraj'),
+            new Vehicle('Normal', 'Yellow', 'Audi', '1116', 'Akshay'),
+            new Vehicle('Normal', 'Black', 'BWM', '1117', 'LaxMan'),
+            new Vehicle('Normal', 'Blue', 'Honda', '1118', 'Ravi'),
+            new Vehicle('Normal', 'Blue', 'Audi', '1119', 'Kumud')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let whiteCar = parkingLotSystem.findCarsWithColorAndCarName('Blue', 'Toyota');
         assert.equal(whiteCar, false)
     });
 });
