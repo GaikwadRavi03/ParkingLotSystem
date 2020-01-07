@@ -1,9 +1,9 @@
 class Vehicle {
-    constructor(vehicleType, vehicleName, vehicleColor, vehicleNumber) {
-        this.vehicleName = vehicleName;
-        this.vehicleColor = vehicleColor;
-        this.vehicleNumber = vehicleNumber;
+    constructor(vehicleType, vehicleColor, vehicleName, vehicleNumber) {
         this.vehicleType = vehicleType;
+        this.vehicleColor = vehicleColor;
+        // this.vehicleName = vehicleName;
+        // this.vehicleNumber = vehicleNumber;
     }
 }
 

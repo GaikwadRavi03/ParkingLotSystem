@@ -1,6 +1,6 @@
 const TypeOfDrivers = {
-    HANDICAP: 'Handicap',
-    NORMAL:'Normal'
+    HANDICAP: 'HandicapDriver',
+    NORMAL:'NormalDriver'
 };
 module.exports = {
     type:TypeOfDrivers

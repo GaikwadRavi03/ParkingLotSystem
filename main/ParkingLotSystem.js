@@ -1,7 +1,7 @@
 let ParkingLotObserver = require('./ParkingLotObserver');
 
 let parkingLotObserver
-const parkingLotMaxSize = 9
+const parkingLotMaxSize = 9;
 
 class ParkingLotSystem {
 
@@ -13,7 +13,7 @@ class ParkingLotSystem {
         parkingLotObserver = new ParkingLotObserver();
     }
 
-    park(vehicle,typeOfDrivers) {
+    park(vehicle, typeOfDrivers) {
         let lotNumber;
         if (vehicle == null) {
             throw new Error('unknown vehicle parked.');
@@ -21,11 +21,11 @@ class ParkingLotSystem {
         if (this.isParkingLotFull()) {
             throw new Error('parking lot is full.');
         }
-        if (typeOfDrivers == "Handicap") {
+        if (typeOfDrivers == "HandicapDriver") {
             lotNumber = this.findLotNumberToParkForHandicap();
-        } else if(typeOfDrivers == "Normal"){
+        } else if (typeOfDrivers == "NormalDriver" || vehicle.vehicleType == 'NormalType') {
             lotNumber = this.findLotNumberToPark();
-        }else if (vehicle.vehicleType == "LargeCar") {
+        } else if (vehicle.vehicleType == "LargeCar") {
             lotNumber = this.findLotNumberToParkToLargeCar();
         }
         for (let i = 0; i < this.parkingLots[lotNumber].length; i++) {
@@ -130,6 +130,19 @@ class ParkingLotSystem {
         }
         return Math.max(...this.largestEmptySlot);
     }
+
+    findWhiteCars() {
+        for (let j = 0; j < this.parkingLots.length; j++) {
+            for (let i = 0; i < this.parkingLots.length; i++) {
+                if (this.parkingLots[i][j].vehicleColor === 'White') {
+                    let whiteCar = {lot: i, slot: j}
+                    return whiteCar;
+                }
+            }
+        }
+        return false
+    }
+
 }
 
 module.exports = ParkingLotSystem;
