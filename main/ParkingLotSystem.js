@@ -169,6 +169,18 @@ class ParkingLotSystem {
         }
         return false
     }
+
+    findParkedCarsWithLast30Min() {
+        this.listArray = []
+        for (let j = 0; j < this.parkingLots.length; j++) {
+            for (let i = 0; i < this.parkingLots.length; i++) {
+                if (this.parkingLots[i][j].vehicleParkTime >= '3:00' && this.parkingLots[i][j].vehicleParkTime <= '3:30') {
+                    this.listArray.push(this.parkingLots[i][j].vehicleDriverName)
+                }
+            }
+        }
+        return this.listArray;
+    }
 }
 
 module.exports = ParkingLotSystem;
