@@ -322,4 +322,27 @@ describe(`describe Mocha Test for parking lot`, () => {
         let vehiclePosition = parkingLotSystem.findCarsWithCarCompanyName('BMW');
         assert.equal(vehiclePosition, false)
     });
+    // -----------uc15----------------
+    it(`should return true when police dept get cars with park last 30 min so that investigate a bomb threat. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3]);
+        let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', 'Ram', '2:00'),
+            new Vehicle('Normal', 'Yellow', 'Maruti', '1112', 'Sham', '2:15'),
+            new Vehicle('Normal', 'Black', 'Toyota', '1113', 'Salim', '2:45'),
+            new Vehicle('Normal', 'Blue', 'TATA', '1114', 'Mangesh', '2:59'),
+            new Vehicle('Normal', 'Red', 'BMW', '1115', 'Suraj', '3:00'),
+            new Vehicle('Normal', 'Yellow', 'Audi', '1116', 'Akshay', '3:15'),
+            new Vehicle('Normal', 'Black', 'BMW', '1117', 'LaxMan', '3:20'),
+            new Vehicle('Normal', 'Blue', 'Toyota', '1118', 'Ravi', '3:25'),
+            new Vehicle('Normal', 'Blue', 'Audi', '1119', 'Kumud', '3:29')];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
+        console.log(vehiclePosition)
+        assert.equal(vehiclePosition[0], 'Suraj')
+        assert.equal(vehiclePosition[1], 'Akshay')
+        assert.equal(vehiclePosition[2], 'LaxMan')
+        assert.equal(vehiclePosition[3], 'Ravi')
+        assert.equal(vehiclePosition[4], 'Kumud')
+    });
 });
