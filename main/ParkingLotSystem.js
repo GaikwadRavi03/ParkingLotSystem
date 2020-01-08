@@ -172,8 +172,6 @@ class ParkingLotSystem {
         this.listArray = []
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
-                console.log(this.parkingLots[i][j].time.parkTime)
-                console.log(new Date().toString())
                 if (new Date().toString() >= this.parkingLots[i][j].time.parkTime) {
                     this.listArray.push(this.parkingLots[i][j])
                 }

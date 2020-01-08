@@ -320,7 +320,6 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let vehiclePosition = parkingLotSystem.findCarsWithCarCompanyName('BMW');
-        console.log(vehiclePosition)
         assert.equal(vehiclePosition[0].driver.driverName, 'Suraj')
         assert.equal(vehiclePosition[1].driver.driverName, 'LaxMan')
     });
@@ -357,7 +356,6 @@ describe(`describe Mocha Test for parking lot`, () => {
             parkingLotSystem.park(car, driverType.type.NORMAL);
         })
         let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
-        console.log(vehiclePosition)
         assert.equal(vehiclePosition[0].driver.driverName, 'Prince')
         assert.equal(vehiclePosition[1].driver.driverName, 'Nakka')
         assert.equal(vehiclePosition[2].driver.driverName, 'Salim')
@@ -365,7 +363,7 @@ describe(`describe Mocha Test for parking lot`, () => {
         assert.equal(vehiclePosition[4].driver.driverName, 'Suraj')
     });
     // -----------uc16----------------
-    it(`should return true when police dept get cars with park last 30 min so that investigate a bomb threat. `, () => {
+    it(`should return true when police dept get cars park so that investigate in B and D row a bomb threat. `, () => {
         let parkingLotSystem = new ParkingLotSystem(4, [4, 4, 4, 4], 16);
         let car1 = new Vehicle('Normal', 'Red', 'TATA', '1111', new Driver('Prince'), new Time(carParkTime(55).toString()));
         let car2 = new Vehicle('Normal', 'Yellow', 'Maruti', '1112', new Driver('Nakka'), new Time(carParkTime(45).toString()));
@@ -397,9 +395,27 @@ describe(`describe Mocha Test for parking lot`, () => {
         parkingLotSystem.park(car12, driverType.type.NORMAL);
         parkingLotSystem.park(car13, driverType.type.NORMAL);
         parkingLotSystem.park(car14, driverType.type.NORMAL);
-        parkingLotSystem.park(car15, driverType.type.NORMAL);
+        parkingLotSystem.park(car15, driverType.type.NORMAL);``
         parkingLotSystem.park(car16, driverType.type.NORMAL);
         let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
         assert.equal(vehiclePosition[0].driver.driverName, 'Prince')
+    });
+    // -----------uc17----------------
+    it(`should return true when police dept get cars which park cars to investigate fraud cars. `, () => {
+        let parkingLotSystem = new ParkingLotSystem(3, [3, 3, 3], 9);
+        let car = [new Vehicle('Normal', 'Red', 'TATA', '1111', new Driver('Prince'), new Time(carParkTime(55).toString())),
+            new Vehicle('Normal', 'Yellow', 'Maruti', '1112', new Driver('Nakka'), new Time(carParkTime(45).toString())),
+            new Vehicle('Normal', 'Black', 'Toyota', '1113', new Driver('Salim'), new Time(carParkTime(40).toString())),
+            new Vehicle('Normal', 'Blue', 'TATA', '1114', new Driver('Mangesh'), new Time(carParkTime(35).toString())),
+            new Vehicle('Normal', 'Red', 'BMW', '1115', new Driver('Suraj'), new Time(carParkTime(30).toString())),
+            new Vehicle('Normal', 'Yellow', 'Audi', '1116', new Driver('Akshay'), new Time(carParkTime(25).toString())),
+            new Vehicle('Normal', 'Black', 'BMW', '1117', new Driver('LaxMan'), new Time(carParkTime(20).toString())),
+            new Vehicle('Normal', 'Blue', 'Toyota', '1118', new Driver('Ravi'), new Time(carParkTime(15).toString())),
+            new Vehicle('Normal', 'Blue', 'Audi', '1119', new Driver('Kumud'), new Time(carParkTime(10).toString()))];
+        car.map(car => {
+            parkingLotSystem.park(car, driverType.type.NORMAL);
+        })
+        let vehiclePosition = parkingLotSystem.findParkedCarsWithLast30Min();
+        assert.equal(vehiclePosition[0].vehicleNumber, '1111')
     });
 });
