@@ -1,14 +1,14 @@
 let ParkingLotObserver = require('./ParkingLotObserver');
 
 let parkingLotObserver
-const parkingLotMaxSize = 9;
 
 class ParkingLotSystem {
 
-    constructor(numOfLots, capacity) {
+    constructor(numOfLots, capacity, maxCapacity) {
         this.largestEmptySlot = []
         this.parkingLots = 0;
         this.counter = 0;
+        this.parkingLotMaxSize = maxCapacity;
         this.lots(numOfLots, capacity);
         parkingLotObserver = new ParkingLotObserver();
     }
@@ -56,7 +56,7 @@ class ParkingLotSystem {
     }
 
     isParkingLotFull() {
-        if (this.counter == parkingLotMaxSize) {
+        if (this.counter == this.parkingLotMaxSize) {
             parkingLotObserver.subscribe()
             parkingLotObserver.getNotify();
             return true;
@@ -161,7 +161,7 @@ class ParkingLotSystem {
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
                 if (this.parkingLots[i][j].vehicleName === vehicleCompanyName) {
-                    this.carArray.push(this.parkingLots[i][j].vehicleDriverName)
+                    this.carArray.push(this.parkingLots[i][j])
                 }
             }
         }
@@ -172,8 +172,10 @@ class ParkingLotSystem {
         this.listArray = []
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
-                if (this.parkingLots[i][j].vehicleParkTime >= '3:00' && this.parkingLots[i][j].vehicleParkTime <= '3:30') {
-                    this.listArray.push(this.parkingLots[i][j].vehicleDriverName)
+                console.log(this.parkingLots[i][j].time.parkTime)
+                console.log(new Date().toString())
+                if (new Date().toString() >= this.parkingLots[i][j].time.parkTime) {
+                    this.listArray.push(this.parkingLots[i][j])
                 }
             }
         }
