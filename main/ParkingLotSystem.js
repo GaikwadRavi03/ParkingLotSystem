@@ -1,6 +1,7 @@
 let ParkingLotObserver = require('./ParkingLotObserver');
 
 let parkingLotObserver
+let beforeHalfHours = 30;
 
 class ParkingLotSystem {
 
@@ -172,7 +173,8 @@ class ParkingLotSystem {
         this.listArray = []
         for (let j = 0; j < this.parkingLots.length; j++) {
             for (let i = 0; i < this.parkingLots.length; i++) {
-                if (new Date().toString() >= this.parkingLots[i][j].time.parkTime) {
+                let parkTime = Math.round(new Date().getTime() - this.parkingLots[i][j].time.parkTime) / 60000
+                if (parkTime <= beforeHalfHours) {
                     this.listArray.push(this.parkingLots[i][j])
                 }
             }

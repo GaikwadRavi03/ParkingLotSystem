@@ -9,6 +9,5 @@ class Vehicle {
         this.time = parkTime;
     }
 }
-// constructor(vehicleType, vehicleColor, vehicleName, vehicleNumber, driverName, parkTime) {
 
 module.exports = Vehicle;
